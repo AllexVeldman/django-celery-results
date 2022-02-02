@@ -1,0 +1,19 @@
+name: Reproduce
+
+on:
+    push:
+
+jobs:
+    rep194:
+        name: Reproduce #194
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: docker-compose up -d --build migrate celery-worker
+              working-directory: reproduce/rep194
+            - run: docker-compose run --rm celery-worker -c "python -c 'from reproduce.rep194.celery_app import run; run()'"
+              working-directory: reproduce/rep194
+            - run: sleep 5
+              shell: bash
+            - run: docker-compose logs celery-worker
+              working-directory: reproduce/rep194

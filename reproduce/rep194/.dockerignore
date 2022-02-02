@@ -1,0 +1,8 @@
+.git
+.pytest_cache
+.tox
+build
+*.egg-info
+docs
+requirements
+t/
